@@ -3,7 +3,7 @@
     <h4>Filters</h4>
     <div class="form-group">
       <label for="limit">Limit</label>
-      <select [(ngModel)]="limit" class="form-control">
+      <select [(ngModel)]="limit" class="form-control" (change)="retrieveProcurement()">
         <option value="10">10</option>
         <option value="20">20</option>
         <option value="50">50</option>
