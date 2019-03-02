@@ -1,1 +1,52 @@
-Hello
+<table class="table table-responsive">
+  <thead>
+    <tr>
+      <th>IUB Document ID</th>
+      <th>Authority Name</th>
+      <th>Authority Registration Number</th>
+      <th>Decision Date</th>
+      <th>Contract Price</th>
+      <th>Exact Currency</th>
+      <th>Tender count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of IUBData">
+      <td>{{ row.document_id }}</td>
+      <td>{{ row.authority_name }}</td>
+      <td>{{ row.authority_reg_num }}</td>
+      <td>
+        <ng-container *ngIf="row.part_5_list?.part_5?.decision_date">
+          {{ row.part_5_list?.part_5?.decision_date }}
+        </ng-container>
+        <ng-container *ngIf="!row.part_5_list?.part_5?.decision_date">
+          N/A
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="row.part_5_list?.part_5?.contract_price_exact">
+          {{ row.part_5_list?.part_5?.contract_price_exact }}
+        </ng-container>
+        <ng-container *ngIf="!row.part_5_list?.part_5?.contract_price_exact">
+          N/A
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="row.part_5_list?.part_5?.exact_currency">
+          {{ row.part_5_list?.part_5?.exact_currency }}
+        </ng-container>
+        <ng-container *ngIf="!row.part_5_list?.part_5?.exact_currency">
+          N/A
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="row.part_5_list?.part_5?.tender_num">
+          {{ row.part_5_list?.part_5?.tender_num }}
+        </ng-container>
+        <ng-container *ngIf="!row.part_5_list?.part_5?.tender_num">
+          N/A
+        </ng-container>
+      </td>
+    </tr>
+  </tbody>
+</table>

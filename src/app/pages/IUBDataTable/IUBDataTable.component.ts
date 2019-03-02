@@ -18,6 +18,11 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class IUBDataTableComponent implements OnInit {
   /**
+   * Globally used variables within the component.
+   */
+  public IUBData: any[] = [];
+
+  /**
    * Creates IUB Data Table Component object instance.
    * @param apiService - API service object instance.
    */
@@ -40,7 +45,9 @@ export class IUBDataTableComponent implements OnInit {
     this.apiService.getProcurements()
       .subscribe(
         data => {
-          console.log(data);
+          this.IUBData = <any>data;
+
+          console.log(this.IUBData);
         },
         () => {
           this.toastr.error('Cannot retrieve IUB procurement data', 'IUB procurement data not retrieved');
