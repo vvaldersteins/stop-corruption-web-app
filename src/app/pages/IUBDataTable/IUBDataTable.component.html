@@ -68,13 +68,90 @@
       <table class="table">
         <thead>
           <tr>
-            <th>IUB Document ID</th>
-            <th>Authority Name</th>
-            <th>Authority Registration Number</th>
-            <th>Decision Date</th>
-            <th>Contract Price</th>
-            <th>Exact Currency</th>
-            <th>Tender count</th>
+            <th class="pointer" (click)="setSorting('document_id')">
+              IUB Document ID
+              <ng-container *ngIf="sortBy === 'document_id'">
+                <ng-container *ngIf="sortDirection === 1">
+                  <span class="material-icons">arrow_upwards</span>
+                </ng-container>
+
+                <ng-container *ngIf="sortDirection === -1">
+                  <span class="material-icons">arrow_downwards</span>
+                </ng-container>
+              </ng-container>
+            </th>
+            <th class="pointer" (click)="setSorting('authority_name')">
+              Authority Name
+              <ng-container *ngIf="sortBy === 'authority_name'">
+                <ng-container *ngIf="sortDirection === 1">
+                  <span class="material-icons">arrow_upwards</span>
+                </ng-container>
+
+                <ng-container *ngIf="sortDirection === -1">
+                  <span class="material-icons">arrow_downwards</span>
+                </ng-container>
+              </ng-container>
+            </th>
+            <th class="pointer" (click)="setSorting('authority_reg_num')">
+              Authority Registration Number
+              <ng-container *ngIf="sortBy === 'authority_reg_num'">
+                <ng-container *ngIf="sortDirection === 1">
+                  <span class="material-icons">arrow_upwards</span>
+                </ng-container>
+
+                <ng-container *ngIf="sortDirection === -1">
+                  <span class="material-icons">arrow_downwards</span>
+                </ng-container>
+              </ng-container>
+            </th>
+            <th class="pointer" (click)="setSorting('part_5_list.part_5.decision_date')">
+              Decision Date
+              <ng-container *ngIf="sortBy === 'part_5_list.part_5.decision_date'">
+                <ng-container *ngIf="sortDirection === 1">
+                  <span class="material-icons">arrow_upwards</span>
+                </ng-container>
+
+                <ng-container *ngIf="sortDirection === -1">
+                  <span class="material-icons">arrow_downwards</span>
+                </ng-container>
+              </ng-container>
+            </th>
+            <th class="pointer" (click)="setSorting('part_5_list.part_5.contract_price_exact')">
+              Contract Price
+              <ng-container *ngIf="sortBy === 'part_5_list.part_5.contract_price_exact'">
+                <ng-container *ngIf="sortDirection === 1">
+                  <span class="material-icons">arrow_upwards</span>
+                </ng-container>
+
+                <ng-container *ngIf="sortDirection === -1">
+                  <span class="material-icons">arrow_downwards</span>
+                </ng-container>
+              </ng-container>
+            </th>
+            <th class="pointer" (click)="setSorting('part_5_list.part_5.exact_currency')">
+              Exact Currency
+              <ng-container *ngIf="sortBy === 'part_5_list.part_5.exact_currency'">
+                <ng-container *ngIf="sortDirection === 1">
+                  <span class="material-icons">arrow_upwards</span>
+                </ng-container>
+
+                <ng-container *ngIf="sortDirection === -1">
+                  <span class="material-icons">arrow_downwards</span>
+                </ng-container>
+              </ng-container>
+            </th>
+            <th class="pointer" (click)="setSorting('part_5_list.part_5.tender_num')">
+              Tender Count
+              <ng-container *ngIf="sortBy === 'part_5_list.part_5.tender_num'">
+                <ng-container *ngIf="sortDirection === 1">
+                  <span class="material-icons">arrow_upwards</span>
+                </ng-container>
+
+                <ng-container *ngIf="sortDirection === -1">
+                  <span class="material-icons">arrow_downwards</span>
+                </ng-container>
+              </ng-container>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -88,7 +165,13 @@
               <td>
                 <a href="https://pvs.iub.gov.lv/show/{{ row.document_id }}" target="_blank">{{ row.document_id }}</a>
               </td>
-              <td>{{ row.authority_name }}</td>
+              <td>
+                <button 
+                  class="btn btn-link py-0"
+                  (click)="getAuthorityData(row.authority_name, row.authority_reg_num)"
+                  data-toggle="modal"
+                  data-target="#authorityDataModal">{{ row.authority_name }}</button>
+                </td>
               <td>{{ row.authority_reg_num }}</td>
               <td>
                 <ng-container *ngIf="row.part_5_list?.part_5?.decision_date">
@@ -100,7 +183,7 @@
               </td>
               <td>
                 <ng-container *ngIf="row.part_5_list?.part_5?.contract_price_exact">
-                  {{ row.part_5_list?.part_5?.contract_price_exact }}
+                  {{ row.part_5_list?.part_5?.contract_price_exact | currency:'EUR':'symbol':'0.2-2' }}
                 </ng-container>
                 <ng-container *ngIf="!row.part_5_list?.part_5?.contract_price_exact">
                   N/A
@@ -126,6 +209,26 @@
           </ng-container>
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+
+<!-- Authority data modal -->
+<div class="modal fade" id="authorityDataModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Authority Data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
     </div>
   </div>
 </div>

@@ -24,11 +24,25 @@ export class ApiService {
    * Retrieves list of IUB procurements.
    * @param limit - Limit how much rows to retrieve.
    * @param filters - Object with filters.
+   * @param sort - Object with sort information.
    */
-  getProcurements(limit: number, filters: any): Observable<HttpResponse<any>> {
-    // Setup log namespace query parameter
-    const params = new HttpParams().set('limit', limit.toString()).set('filters', JSON.stringify(filters));
+  getProcurements(limit: number, filters: any, sort: any): Observable<HttpResponse<any>> {
+    // Setup parameters
+    const params = new HttpParams().set('limit', limit.toString()).set('filters', JSON.stringify(filters))
+      .set('sort', JSON.stringify(sort));
 
     return this.http.get<any>(`${this.baseUrl}/data`, { params });
+  }
+
+  /**
+   * Retrieves a specific authority data.
+   * @param name - Name of the authority for which to return details.
+   * @param regNr - Registration number of the authority for which to return details.
+   */
+  getAuthorityData(name: string, regNr: string): Observable<HttpResponse<any>> {
+    // Setup parameters
+    const params = new HttpParams().set('name', name).set('regNr', regNr);
+
+    return this.http.get<any>(`${this.baseUrl}/single-data`, { params });
   }
 }
