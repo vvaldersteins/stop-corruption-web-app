@@ -1,5 +1,13 @@
 <div class="row">
   <div class="col-12">
+    <button class="btn btn-link py-0" (click)="showHelp = !showHelp">
+      <ng-container *ngIf="!showHelp">Palīdzība +</ng-container>
+      <ng-container *ngIf="showHelp">Palīdzība -</ng-container>
+    </button><br />
+
+    <img src="../../../assets/attels-1.jpeg" *ngIf="showHelp" />
+  </div>
+  <div class="col-12">
     <h4>Filters</h4>
 
     <div class="row">

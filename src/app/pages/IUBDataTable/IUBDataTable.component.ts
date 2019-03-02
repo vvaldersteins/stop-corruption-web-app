@@ -30,6 +30,7 @@ export class IUBDataTableComponent implements OnInit {
   public sortBy: string;
   public sortDirection = 1;
   public winnerData: any;
+  public showHelp = false;
 
   /**
    * Creates IUB Data Table Component object instance.
