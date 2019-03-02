@@ -1,14 +1,65 @@
 <div class="row">
   <div class="col-12">
     <h4>Filters</h4>
-    <div class="form-group">
-      <label for="limit">Limit</label>
-      <select [(ngModel)]="limit" class="form-control" (change)="retrieveProcurement()">
-        <option value="10">10</option>
-        <option value="20">20</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-      </select>
+
+    <div class="row">
+      <!-- Limit Filter -->
+      <div class="col-12 col-md-4">
+        <div class="form-group">
+          <label for="limit">Limit</label>
+          <select [(ngModel)]="limit" class="form-control" (change)="retrieveProcurement()">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Price from filter -->
+      <div class="col-12 col-md-4">
+        <div class="form-group">
+          <label for="price-from">Price From</label>
+          <input type="number" id="price-from" [(ngModel)]="priceFrom" class="form-control" />
+        </div>
+      </div>
+
+      <!-- Price to filter -->
+      <div class="col-12 col-md-4">
+        <div class="form-group">
+          <label for="price-to">Price To</label>
+          <input type="number" id="price-to" [(ngModel)]="priceTo" class="form-control" />
+        </div>
+      </div>
+
+      <!-- Tender count from filter -->
+      <div class="col-12 col-md-4">
+        <div class="form-group">
+          <label for="tender-count-from">Tender count From</label>
+          <input type="number" id="tender-count-from" [(ngModel)]="tenderCountFrom" class="form-control" />
+        </div>
+      </div>
+
+      <!-- Tender count to filter -->
+      <div class="col-12 col-md-4">
+        <div class="form-group">
+          <label for="tender-count-to">Tender count To</label>
+          <input type="number" id="tender-count-to" [(ngModel)]="tenderCountTo" class="form-control" />
+        </div>
+      </div>
+      
+      <!-- Tender count to filter -->
+      <div class="col-12 col-md-4">
+        <div class="form-group">
+          <label for="authority-name">Authority Name</label>
+          <input type="text" id="authority-name" [(ngModel)]="authorityName" class="form-control" />
+        </div>
+      </div>
+
+      <!-- Apply filters -->
+      <div class="col-12">
+        <button class="btn btn-primary float-right" (click)="retrieveProcurement()">Apply Filters</button>
+      </div>
     </div>
   </div>
   <div class="col-12">
@@ -27,45 +78,52 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let row of IUBData">
-            <td>
-              <a href="https://pvs.iub.gov.lv/show/{{ row.document_id }}" target="_blank">{{ row.document_id }}</a>
-            </td>
-            <td>{{ row.authority_name }}</td>
-            <td>{{ row.authority_reg_num }}</td>
-            <td>
-              <ng-container *ngIf="row.part_5_list?.part_5?.decision_date">
-                {{ row.part_5_list?.part_5?.decision_date }}
-              </ng-container>
-              <ng-container *ngIf="!row.part_5_list?.part_5?.decision_date">
-                N/A
-              </ng-container>
-            </td>
-            <td>
-              <ng-container *ngIf="row.part_5_list?.part_5?.contract_price_exact">
-                {{ row.part_5_list?.part_5?.contract_price_exact }}
-              </ng-container>
-              <ng-container *ngIf="!row.part_5_list?.part_5?.contract_price_exact">
-                N/A
-              </ng-container>
-            </td>
-            <td>
-              <ng-container *ngIf="row.part_5_list?.part_5?.exact_currency">
-                {{ row.part_5_list?.part_5?.exact_currency }}
-              </ng-container>
-              <ng-container *ngIf="!row.part_5_list?.part_5?.exact_currency">
-                N/A
-              </ng-container>
-            </td>
-            <td>
-              <ng-container *ngIf="row.part_5_list?.part_5?.tender_num">
-                {{ row.part_5_list?.part_5?.tender_num }}
-              </ng-container>
-              <ng-container *ngIf="!row.part_5_list?.part_5?.tender_num">
-                N/A
-              </ng-container>
-            </td>
-          </tr>
+          <ng-container *ngIf="IUBData.length === 0">
+            <tr>
+              <td colspan="7" class="text-center">No records were found that match the specified search criteria</td>
+            </tr>
+          </ng-container>
+          <ng-container *ngIf="IUBData.length > 0">
+            <tr *ngFor="let row of IUBData">
+              <td>
+                <a href="https://pvs.iub.gov.lv/show/{{ row.document_id }}" target="_blank">{{ row.document_id }}</a>
+              </td>
+              <td>{{ row.authority_name }}</td>
+              <td>{{ row.authority_reg_num }}</td>
+              <td>
+                <ng-container *ngIf="row.part_5_list?.part_5?.decision_date">
+                  {{ row.part_5_list?.part_5?.decision_date }}
+                </ng-container>
+                <ng-container *ngIf="!row.part_5_list?.part_5?.decision_date">
+                  N/A
+                </ng-container>
+              </td>
+              <td>
+                <ng-container *ngIf="row.part_5_list?.part_5?.contract_price_exact">
+                  {{ row.part_5_list?.part_5?.contract_price_exact }}
+                </ng-container>
+                <ng-container *ngIf="!row.part_5_list?.part_5?.contract_price_exact">
+                  N/A
+                </ng-container>
+              </td>
+              <td>
+                <ng-container *ngIf="row.part_5_list?.part_5?.exact_currency">
+                  {{ row.part_5_list?.part_5?.exact_currency }}
+                </ng-container>
+                <ng-container *ngIf="!row.part_5_list?.part_5?.exact_currency">
+                  N/A
+                </ng-container>
+              </td>
+              <td>
+                <ng-container *ngIf="row.part_5_list?.part_5?.tender_num">
+                  {{ row.part_5_list?.part_5?.tender_num }}
+                </ng-container>
+                <ng-container *ngIf="!row.part_5_list?.part_5?.tender_num">
+                  N/A
+                </ng-container>
+              </td>
+            </tr>
+          </ng-container>
         </tbody>
       </table>
     </div>

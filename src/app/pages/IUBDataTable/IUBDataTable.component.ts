@@ -22,6 +22,11 @@ export class IUBDataTableComponent implements OnInit {
    */
   public IUBData: any[] = [];
   public limit = 10;
+  public priceFrom: number;
+  public priceTo: number;
+  public tenderCountFrom: number;
+  public tenderCountTo: number;
+  public authorityName: string;
 
   /**
    * Creates IUB Data Table Component object instance.
@@ -43,7 +48,15 @@ export class IUBDataTableComponent implements OnInit {
    * Retrieves IUB procurement list.
    */
   retrieveProcurement() {
-    this.apiService.getProcurements(this.limit)
+    const filters = {
+      'part_5_list.part_5.contract_price_exact': this.priceFrom || this.priceTo ?
+        { $gte: this.priceFrom, $lte: this.priceTo } : undefined,
+      'part_5_list.part_5.tender_num': this.tenderCountFrom || this.tenderCountTo ?
+        { $gte: this.tenderCountFrom, $lte: this.tenderCountTo } : undefined,
+      authority_name: this.authorityName ? this.authorityName : undefined
+    };
+
+    this.apiService.getProcurements(this.limit, filters)
       .subscribe(
         data => {
           this.IUBData = <any>data;

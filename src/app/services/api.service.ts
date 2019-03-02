@@ -23,10 +23,11 @@ export class ApiService {
   /**
    * Retrieves list of IUB procurements.
    * @param limit - Limit how much rows to retrieve.
+   * @param filters - Object with filters.
    */
-  getProcurements(limit: number): Observable<HttpResponse<any>> {
+  getProcurements(limit: number, filters: any): Observable<HttpResponse<any>> {
     // Setup log namespace query parameter
-    const params = new HttpParams().set('limit', limit.toString());
+    const params = new HttpParams().set('limit', limit.toString()).set('filters', JSON.stringify(filters));
 
     return this.http.get<any>(`${this.baseUrl}/data`, { params });
   }
