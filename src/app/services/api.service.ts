@@ -33,16 +33,4 @@ export class ApiService {
 
     return this.http.get<any>(`${this.baseUrl}/data`, { params });
   }
-
-  /**
-   * Retrieves a specific winner data.
-   * @param name - Name of the winner for which to return details.
-   * @param regNr - Registration number of the winner for which to return details.
-   */
-  getWinnerData(name: string, regNr: string): Observable<HttpResponse<any>> {
-    // Setup parameters
-    const params = new HttpParams().set('name', name).set('regNr', regNr);
-
-    return this.http.get<any>(`${this.baseUrl}/single-data`, { params });
-  }
 }

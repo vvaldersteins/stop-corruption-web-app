@@ -12,6 +12,7 @@
             <option value="20">20</option>
             <option value="50">50</option>
             <option value="100">100</option>
+            <option value="500">500</option>
           </select>
         </div>
       </div>
@@ -161,18 +162,14 @@
             </tr>
           </ng-container>
           <ng-container *ngIf="IUBData.length > 0">
-            <tr *ngFor="let row of IUBData">
+            <tr *ngFor="let row of IUBData" [ngClass]="{'table-warning': row.winner_list?.winner?.winner_country !== '1', 'table-danger': row.winner_list?.winner?.winner_country !== '1' && row.part_5_list?.part_5?.tender_num  === '1'}">
               <td>
                 <a href="https://pvs.iub.gov.lv/show/{{ row.document_id }}" target="_blank">{{ row.document_id }}</a>
               </td>
               <td>{{ row.authority_name }}</td>
               <td>{{ row.authority_reg_num }}</td>
               <td>
-                <button 
-                  class="btn btn-link py-0"
-                  (click)="getWinnerData(row.winner_list?.winner?.winner_name, row.winner_list?.winner?.winner_reg_num)"
-                  data-toggle="modal"
-                  data-target="#winnerDataModal">{{ row.winner_list?.winner?.winner_name }} ({{ row.winner_list?.winner?.winner_reg_num }})</button>
+                <a target="_blank" href="https://company.lursoft.lv/{{ row.winner_list?.winner?.winner_reg_num}}">{{ row.winner_list?.winner?.winner_name }} ({{ row.winner_list?.winner?.winner_reg_num }})</a>
               </td>
               <td>
                 <ng-container *ngIf="row.part_5_list?.part_5?.decision_date">

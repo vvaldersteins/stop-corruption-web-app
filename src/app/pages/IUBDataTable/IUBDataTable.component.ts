@@ -102,12 +102,5 @@ export class IUBDataTableComponent implements OnInit {
    * @param regNr - Registration number of the winner for which to retrieve data.
    */
   getWinnerData(name: string, regNr: string) {
-    this.apiService.getWinnerData(name, regNr)
-      .subscribe(
-        data => {
-          this.winnerData = <any>data;
-        },
-        () => this.toastr.error('Cannot retrieve winner data', 'Winner data was not retrieved')
-      );
   }
 }
