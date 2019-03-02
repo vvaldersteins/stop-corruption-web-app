@@ -2,7 +2,7 @@
  * Import Angular libraries.
  */
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -22,8 +22,12 @@ export class ApiService {
 
   /**
    * Retrieves list of IUB procurements.
+   * @param limit - Limit how much rows to retrieve.
    */
-  getProcurements(): Observable<HttpResponse<any>> {
-    return this.http.get<any>(`${this.baseUrl}/data`);
+  getProcurements(limit: number): Observable<HttpResponse<any>> {
+    // Setup log namespace query parameter
+    const params = new HttpParams().set('limit', limit.toString());
+
+    return this.http.get<any>(`${this.baseUrl}/data`, { params });
   }
 }

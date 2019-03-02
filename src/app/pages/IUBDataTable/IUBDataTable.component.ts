@@ -21,6 +21,7 @@ export class IUBDataTableComponent implements OnInit {
    * Globally used variables within the component.
    */
   public IUBData: any[] = [];
+  public limit = 10;
 
   /**
    * Creates IUB Data Table Component object instance.
@@ -42,12 +43,10 @@ export class IUBDataTableComponent implements OnInit {
    * Retrieves IUB procurement list.
    */
   retrieveProcurement() {
-    this.apiService.getProcurements()
+    this.apiService.getProcurements(this.limit)
       .subscribe(
         data => {
           this.IUBData = <any>data;
-
-          console.log(this.IUBData);
         },
         () => {
           this.toastr.error('Cannot retrieve IUB procurement data', 'IUB procurement data not retrieved');
