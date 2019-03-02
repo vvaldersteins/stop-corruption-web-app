@@ -12,7 +12,9 @@
   </thead>
   <tbody>
     <tr *ngFor="let row of IUBData">
-      <td>{{ row.document_id }}</td>
+      <td>
+        <a href="https://pvs.iub.gov.lv/show/{{ row.document_id }}" target="_blank">{{ row.document_id }}</a>
+      </td>
       <td>{{ row.authority_name }}</td>
       <td>{{ row.authority_reg_num }}</td>
       <td>
