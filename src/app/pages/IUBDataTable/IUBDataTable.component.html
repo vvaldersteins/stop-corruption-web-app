@@ -140,18 +140,6 @@
                 </ng-container>
               </ng-container>
             </th>
-            <th class="pointer" (click)="setSorting('part_5_list.part_5.exact_currency')">
-              Exact Currency
-              <ng-container *ngIf="sortBy === 'part_5_list.part_5.exact_currency'">
-                <ng-container *ngIf="sortDirection === 1">
-                  <span class="material-icons">arrow_upwards</span>
-                </ng-container>
-
-                <ng-container *ngIf="sortDirection === -1">
-                  <span class="material-icons">arrow_downwards</span>
-                </ng-container>
-              </ng-container>
-            </th>
             <th class="pointer" (click)="setSorting('part_5_list.part_5.tender_num')">
               Tender Count
               <ng-container *ngIf="sortBy === 'part_5_list.part_5.tender_num'">
@@ -199,14 +187,6 @@
                   {{ row.part_5_list?.part_5?.contract_price_exact | currency:'EUR':'symbol':'0.2-2' }}
                 </ng-container>
                 <ng-container *ngIf="!row.part_5_list?.part_5?.contract_price_exact">
-                  N/A
-                </ng-container>
-              </td>
-              <td>
-                <ng-container *ngIf="row.part_5_list?.part_5?.exact_currency">
-                  {{ row.part_5_list?.part_5?.exact_currency }}
-                </ng-container>
-                <ng-container *ngIf="!row.part_5_list?.part_5?.exact_currency">
                   N/A
                 </ng-container>
               </td>
