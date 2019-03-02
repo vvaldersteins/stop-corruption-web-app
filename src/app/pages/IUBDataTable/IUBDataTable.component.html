@@ -104,6 +104,18 @@
                 </ng-container>
               </ng-container>
             </th>
+            <th class="pointer" (click)="setSorting('winner_list.winner.winner_name')">
+              Winner
+              <ng-container *ngIf="sortBy === 'winner_list.winner.winner_name'">
+                <ng-container *ngIf="sortDirection === 1">
+                  <span class="material-icons">arrow_upwards</span>
+                </ng-container>
+
+                <ng-container *ngIf="sortDirection === -1">
+                  <span class="material-icons">arrow_downwards</span>
+                </ng-container>
+              </ng-container>
+            </th>
             <th class="pointer" (click)="setSorting('part_5_list.part_5.decision_date')">
               Decision Date
               <ng-container *ngIf="sortBy === 'part_5_list.part_5.decision_date'">
@@ -165,14 +177,15 @@
               <td>
                 <a href="https://pvs.iub.gov.lv/show/{{ row.document_id }}" target="_blank">{{ row.document_id }}</a>
               </td>
+              <td>{{ row.authority_name }}</td>
+              <td>{{ row.authority_reg_num }}</td>
               <td>
                 <button 
                   class="btn btn-link py-0"
-                  (click)="getAuthorityData(row.authority_name, row.authority_reg_num)"
+                  (click)="getWinnerData(row.winner_list?.winner?.winner_name, row.winner_list?.winner?.winner_reg_num)"
                   data-toggle="modal"
-                  data-target="#authorityDataModal">{{ row.authority_name }}</button>
-                </td>
-              <td>{{ row.authority_reg_num }}</td>
+                  data-target="#winnerDataModal">{{ row.winner_list?.winner?.winner_name }} ({{ row.winner_list?.winner?.winner_reg_num }})</button>
+              </td>
               <td>
                 <ng-container *ngIf="row.part_5_list?.part_5?.decision_date">
                   {{ row.part_5_list?.part_5?.decision_date }}
@@ -214,11 +227,11 @@
 </div>
 
 <!-- Authority data modal -->
-<div class="modal fade" id="authorityDataModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="winnerDataModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Authority Data</h5>
+        <h5 class="modal-title">Winner Data</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

@@ -35,11 +35,11 @@ export class ApiService {
   }
 
   /**
-   * Retrieves a specific authority data.
-   * @param name - Name of the authority for which to return details.
-   * @param regNr - Registration number of the authority for which to return details.
+   * Retrieves a specific winner data.
+   * @param name - Name of the winner for which to return details.
+   * @param regNr - Registration number of the winner for which to return details.
    */
-  getAuthorityData(name: string, regNr: string): Observable<HttpResponse<any>> {
+  getWinnerData(name: string, regNr: string): Observable<HttpResponse<any>> {
     // Setup parameters
     const params = new HttpParams().set('name', name).set('regNr', regNr);
 

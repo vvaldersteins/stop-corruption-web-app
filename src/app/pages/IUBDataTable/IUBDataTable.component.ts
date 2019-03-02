@@ -29,7 +29,7 @@ export class IUBDataTableComponent implements OnInit {
   public authorityName: string;
   public sortBy: string;
   public sortDirection = 1;
-  public authorityData: any;
+  public winnerData: any;
 
   /**
    * Creates IUB Data Table Component object instance.
@@ -53,9 +53,11 @@ export class IUBDataTableComponent implements OnInit {
   retrieveProcurement() {
     const filters = {
       'part_5_list.part_5.contract_price_exact': this.priceFrom || this.priceTo ?
-        { $gte: this.priceFrom, $lte: this.priceTo } : undefined,
+        { $gte: this.priceFrom !== null && this.priceFrom !== undefined ? this.priceFrom : undefined,
+          $lte: this.priceTo !== null && this.priceTo !== undefined ? this.priceTo : undefined } : undefined,
       'part_5_list.part_5.tender_num': this.tenderCountFrom || this.tenderCountTo ?
-        { $gte: this.tenderCountFrom, $lte: this.tenderCountTo } : undefined,
+        { $gte: this.tenderCountFrom !== null && this.tenderCountFrom !== undefined ? this.tenderCountFrom : undefined,
+          $lte: this.tenderCountTo !== null && this.tenderCountTo !== undefined ? this.tenderCountTo : undefined } : undefined,
       authority_name: this.authorityName ? this.authorityName : undefined
     };
     const sort = {};
@@ -95,17 +97,17 @@ export class IUBDataTableComponent implements OnInit {
   }
 
   /**
-   * Retrieves data for a specific authority.
-   * @param name - Name of the authority for which to retrieve data.
-   * @param regNr - Registration number of the authority for which to retrieve data.
+   * Retrieves data for a specific winner.
+   * @param name - Name of the winner for which to retrieve data.
+   * @param regNr - Registration number of the winner for which to retrieve data.
    */
-  getAuthorityData(name: string, regNr: string) {
-    this.apiService.getAuthorityData(name, regNr)
+  getWinnerData(name: string, regNr: string) {
+    this.apiService.getWinnerData(name, regNr)
       .subscribe(
         data => {
-          this.authorityData = <any>data;
+          this.winnerData = <any>data;
         },
-        () => this.toastr.error('Cannot retrieve authority data', 'Authority data was not retrieved')
+        () => this.toastr.error('Cannot retrieve winner data', 'Winner data was not retrieved')
       );
   }
 }
