@@ -113,21 +113,21 @@
                 </ng-container>
               </ng-container>
             </th>
-            <th class="pointer" (click)="setSorting('winner_list.winner.winner_name')">
-              Winner
-              <ng-container *ngIf="sortBy === 'winner_list.winner.winner_name'">
-                <ng-container *ngIf="sortDirection === 1">
-                  <span class="material-icons">arrow_upwards</span>
-                </ng-container>
+            <th>
+              Winners
+              <!--<ng-container *ngIf="sortBy === 'winner_name'">-->
+                <!--<ng-container *ngIf="sortDirection === 1">-->
+                  <!--<span class="material-icons">arrow_upwards</span>-->
+                <!--</ng-container>-->
 
-                <ng-container *ngIf="sortDirection === -1">
-                  <span class="material-icons">arrow_downwards</span>
-                </ng-container>
-              </ng-container>
+                <!--<ng-container *ngIf="sortDirection === -1">-->
+                  <!--<span class="material-icons">arrow_downwards</span>-->
+                <!--</ng-container>-->
+              <!--</ng-container>-->
             </th>
-            <th class="pointer" (click)="setSorting('part_5_list.part_5.decision_date')">
+            <th class="pointer" (click)="setSorting('decision_date')">
               Decision Date
-              <ng-container *ngIf="sortBy === 'part_5_list.part_5.decision_date'">
+              <ng-container *ngIf="sortBy === 'decision_date'">
                 <ng-container *ngIf="sortDirection === 1">
                   <span class="material-icons">arrow_upwards</span>
                 </ng-container>
@@ -137,9 +137,9 @@
                 </ng-container>
               </ng-container>
             </th>
-            <th class="pointer" (click)="setSorting('part_5_list.part_5.contract_price_exact')">
+            <th class="pointer" (click)="setSorting('price')">
               Contract Price
-              <ng-container *ngIf="sortBy === 'part_5_list.part_5.contract_price_exact'">
+              <ng-container *ngIf="sortBy === 'price'">
                 <ng-container *ngIf="sortDirection === 1">
                   <span class="material-icons">arrow_upwards</span>
                 </ng-container>
@@ -149,9 +149,45 @@
                 </ng-container>
               </ng-container>
             </th>
-            <th class="pointer" (click)="setSorting('part_5_list.part_5.tender_num')">
+            <th class="pointer" (click)="setSorting('currency')">
+              Currency
+              <ng-container *ngIf="sortBy === 'currency'">
+                <ng-container *ngIf="sortDirection === 1">
+                  <span class="material-icons">arrow_upwards</span>
+                </ng-container>
+
+                <ng-container *ngIf="sortDirection === -1">
+                  <span class="material-icons">arrow_downwards</span>
+                </ng-container>
+              </ng-container>
+            </th>
+            <th class="pointer" (click)="setSorting('price_from')">
+              Price From
+              <ng-container *ngIf="sortBy === 'price_from'">
+                <ng-container *ngIf="sortDirection === 1">
+                  <span class="material-icons">arrow_upwards</span>
+                </ng-container>
+
+                <ng-container *ngIf="sortDirection === -1">
+                  <span class="material-icons">arrow_downwards</span>
+                </ng-container>
+              </ng-container>
+            </th>
+            <th class="pointer" (click)="setSorting('price_to')">
+              Price To
+              <ng-container *ngIf="sortBy === 'price_to'">
+                <ng-container *ngIf="sortDirection === 1">
+                  <span class="material-icons">arrow_upwards</span>
+                </ng-container>
+
+                <ng-container *ngIf="sortDirection === -1">
+                  <span class="material-icons">arrow_downwards</span>
+                </ng-container>
+              </ng-container>
+            </th>
+            <th class="pointer" (click)="setSorting('tender_num')">
               Tender Count
-              <ng-container *ngIf="sortBy === 'part_5_list.part_5.tender_num'">
+              <ng-container *ngIf="sortBy === 'tender_num'">
                 <ng-container *ngIf="sortDirection === 1">
                   <span class="material-icons">arrow_upwards</span>
                 </ng-container>
@@ -170,37 +206,47 @@
             </tr>
           </ng-container>
           <ng-container *ngIf="IUBData.length > 0">
-            <tr *ngFor="let row of IUBData" [ngClass]="{'table-warning': row.winner_list?.winner?.winner_country !== '1', 'table-danger': row.winner_list?.winner?.winner_country !== '1' && row.part_5_list?.part_5?.tender_num  === '1'}">
+            <tr *ngFor="let row of IUBData">
               <td>
                 <a href="https://pvs.iub.gov.lv/show/{{ row.document_id }}" target="_blank">{{ row.document_id }}</a>
               </td>
               <td>{{ row.authority_name }}</td>
               <td>{{ row.authority_reg_num }}</td>
               <td>
-                <a target="_blank" href="https://company.lursoft.lv/{{ row.winner_list?.winner?.winner_reg_num}}">{{ row.winner_list?.winner?.winner_name }} ({{ row.winner_list?.winner?.winner_reg_num }})</a>
-              </td>
-              <td>
-                <ng-container *ngIf="row.part_5_list?.part_5?.decision_date">
-                  {{ row.part_5_list?.part_5?.decision_date }}
-                </ng-container>
-                <ng-container *ngIf="!row.part_5_list?.part_5?.decision_date">
-                  N/A
+                <ng-container *ngFor="let winner of row.winners">
+                  <a *ngIf="winner.winner_reg_num" target="_blank" href="https://company.lursoft.lv/{{ winner.winner_reg_num}}">{{ winner.winner_name }} ({{ winner.winner_reg_num }})</a>
+                  <span *ngIf="!winner.winner_reg_num" >{{ winner.winner_name }}</span>
                 </ng-container>
               </td>
               <td>
-                <ng-container *ngIf="row.part_5_list?.part_5?.contract_price_exact">
-                  {{ row.part_5_list?.part_5?.contract_price_exact | currency:'EUR':'symbol':'0.2-2' }}
-                </ng-container>
-                <ng-container *ngIf="!row.part_5_list?.part_5?.contract_price_exact">
-                  N/A
+                <ng-container *ngIf="row.decision_date; else noValue">
+                  {{ row.decision_date }}
                 </ng-container>
               </td>
               <td>
-                <ng-container *ngIf="row.part_5_list?.part_5?.tender_num">
-                  {{ row.part_5_list?.part_5?.tender_num }}
+                <ng-container *ngIf="row.price; else noValue">
+                  <span *ngIf="row.currency === 2">&#8364;</span><span>{{ row.price | number:'1.2-2' }}</span>
                 </ng-container>
-                <ng-container *ngIf="!row.part_5_list?.part_5?.tender_num">
-                  N/A
+              </td>
+              <td>
+                <ng-container *ngIf="row.currency; else noValue">
+                  <span *ngIf="row.currency === 1">LVL</span>
+                  <span *ngIf="row.currency === 2">EUR</span>
+                </ng-container>
+              </td>
+              <td>
+                <ng-container *ngIf="row.price_from; else noValue">
+                  <span *ngIf="row.currency === 2">&#8364;</span><span>{{ row.price_from | number:'1.2-2' }}</span>
+                </ng-container>
+              </td>
+              <td>
+                <ng-container *ngIf="row.price_to; else noValue">
+                  <span *ngIf="row.currency === 2">&#8364;</span><span>{{ row.price_to | number:'1.2-2' }}</span>
+                </ng-container>
+              </td>
+              <td>
+                <ng-container *ngIf="row.tender_num; else noValue">
+                  {{ row.tender_num }}
                 </ng-container>
               </td>
             </tr>
@@ -230,3 +276,6 @@
     </div>
   </div>
 </div>
+<ng-template #noValue>
+  -
+</ng-template>

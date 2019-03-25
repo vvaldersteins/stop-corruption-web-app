@@ -10,7 +10,7 @@ export class ApiService {
   /**
    * Globally declared variables for the API service.
    */
-  private baseUrl = 'https://anti-corruption.herokuapp.com';
+  private baseUrl = 'http://localhost:3001';
 
   /**
    * Creates API Service object instance.
@@ -24,12 +24,12 @@ export class ApiService {
    * Retrieves list of IUB procurements.
    * @param limit - Limit how much rows to retrieve.
    * @param filters - Object with filters.
-   * @param sort - Object with sort information.
+   * @param sorters - Object with sort information.
    */
-  getProcurements(limit: number, filters: any, sort: any): Observable<HttpResponse<any>> {
+  getProcurements(limit: number, filters: any, sorters: any): Observable<HttpResponse<any>> {
     // Setup parameters
     const params = new HttpParams().set('limit', limit.toString()).set('filters', JSON.stringify(filters))
-      .set('sort', JSON.stringify(sort));
+      .set('sorters', JSON.stringify(sorters));
 
     return this.http.get<any>(`${this.baseUrl}/data`, { params });
   }

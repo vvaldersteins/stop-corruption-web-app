@@ -21,7 +21,7 @@ export class IUBDataTableComponent implements OnInit {
    * Globally used variables within the component.
    */
   public IUBData: any[] = [];
-  public limit = 10;
+  public limit = 100;
   public priceFrom: number;
   public priceTo: number;
   public tenderCountFrom: number;
@@ -53,21 +53,21 @@ export class IUBDataTableComponent implements OnInit {
    */
   retrieveProcurement() {
     const filters = {
-      'part_5_list.part_5.contract_price_exact': this.priceFrom || this.priceTo ?
+      price: this.priceFrom || this.priceTo ?
         { $gte: this.priceFrom !== null && this.priceFrom !== undefined ? this.priceFrom : undefined,
           $lte: this.priceTo !== null && this.priceTo !== undefined ? this.priceTo : undefined } : undefined,
-      'part_5_list.part_5.tender_num': this.tenderCountFrom || this.tenderCountTo ?
+      tender_num: this.tenderCountFrom || this.tenderCountTo ?
         { $gte: this.tenderCountFrom !== null && this.tenderCountFrom !== undefined ? this.tenderCountFrom : undefined,
           $lte: this.tenderCountTo !== null && this.tenderCountTo !== undefined ? this.tenderCountTo : undefined } : undefined,
       authority_name: this.authorityName ? this.authorityName : undefined
     };
-    const sort = {};
+    const sorters = {};
 
     if (this.sortBy) {
-      sort[this.sortBy] = this.sortDirection;
+      sorters[this.sortBy] = this.sortDirection;
     }
 
-    this.apiService.getProcurements(this.limit, filters, sort)
+    this.apiService.getProcurements(this.limit, filters, sorters)
       .subscribe(
         data => {
           this.IUBData = <any>data;
@@ -82,7 +82,7 @@ export class IUBDataTableComponent implements OnInit {
    */
   setSorting(field: string) {
     if (this.sortBy !== field) {
-      this.sortDirection = 1;
+      this.sortDirection = -1;
     } else {
       if (this.sortDirection === 1) {
         this.sortDirection = -1;
