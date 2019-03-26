@@ -43,8 +43,11 @@ export class IUBDataTableComponent implements OnInit {
 
   /**
    * Does all required pre-requisites before loading the component.
+   *
+   * Adds default sorting by document_id.
    */
   ngOnInit() {
+    this.setSorting('document_id');
     this.retrieveProcurement();
   }
 
