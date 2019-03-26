@@ -10,7 +10,7 @@ export class ApiService {
   /**
    * Globally declared variables for the API service.
    */
-  private baseUrl = 'http://localhost:3001';
+  private baseUrl = 'https://anti-corruption.herokuapp.com';
 
   /**
    * Creates API Service object instance.
