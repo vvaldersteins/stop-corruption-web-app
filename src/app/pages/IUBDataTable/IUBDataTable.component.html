@@ -28,7 +28,7 @@
       <!-- Price from filter -->
       <div class="col-12 col-md-4">
         <div class="form-group">
-          <label for="price-from">Price From</label>
+          <label for="price-from">Min Price</label>
           <input type="number" id="price-from" [(ngModel)]="priceFrom" class="form-control" />
         </div>
       </div>
@@ -36,7 +36,7 @@
       <!-- Price to filter -->
       <div class="col-12 col-md-4">
         <div class="form-group">
-          <label for="price-to">Price To</label>
+          <label for="price-to">Max Price</label>
           <input type="number" id="price-to" [(ngModel)]="priceTo" class="form-control" />
         </div>
       </div>
@@ -124,6 +124,9 @@
                   <!--<span class="material-icons">arrow_downwards</span>-->
                 <!--</ng-container>-->
               <!--</ng-container>-->
+            </th>
+            <th>
+              <span>Winner Registration Dates</span>
             </th>
             <th class="pointer" (click)="setSorting('decision_date')">
               Decision Date
@@ -216,6 +219,11 @@
                 <ng-container *ngFor="let winner of row.winners">
                   <a *ngIf="winner.winner_reg_num" target="_blank" href="https://company.lursoft.lv/{{ winner.winner_reg_num}}">{{ winner.winner_name }} ({{ winner.winner_reg_num }})</a>
                   <span *ngIf="!winner.winner_reg_num" >{{ winner.winner_name }}</span>
+                </ng-container>
+              </td>
+              <td>
+                <ng-container *ngFor="let winner of row.winners">
+                  <span *ngIf="winner.winner_reg_date" >{{ winner.winner_reg_date }}</span>
                 </ng-container>
               </td>
               <td>

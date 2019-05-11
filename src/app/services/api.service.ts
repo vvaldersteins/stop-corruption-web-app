@@ -5,12 +5,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+import { environment } from '../../environments/environment';
+
 @Injectable()
 export class ApiService {
   /**
    * Globally declared variables for the API service.
    */
-  private baseUrl = 'https://anti-corruption.herokuapp.com';
+  private baseUrl = environment.baseUrl;
 
   /**
    * Creates API Service object instance.
