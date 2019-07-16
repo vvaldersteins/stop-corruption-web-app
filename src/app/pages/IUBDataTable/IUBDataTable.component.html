@@ -217,7 +217,9 @@
               <td>{{ row.authority_reg_num }}</td>
               <td>
                 <ng-container *ngFor="let winner of row.winners">
-                  <a *ngIf="winner.winner_reg_num" target="_blank" href="https://company.lursoft.lv/{{ winner.winner_reg_num}}">{{ winner.winner_name }} ({{ winner.winner_reg_num }})</a>
+                  <a *ngIf="winner.winner_reg_num" target="_blank" href="https://company.lursoft.lv/{{ winner.winner_reg_num}}">
+                    {{ winner.winner_name }} ({{ winner.winner_reg_num }}<span *ngIf="winner.winner_reg_date">, reg: {{winner.winner_reg_date}}</span>)
+                  </a>
                   <span *ngIf="!winner.winner_reg_num" >{{ winner.winner_name }}</span>
                 </ng-container>
               </td>

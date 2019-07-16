@@ -35,6 +35,7 @@ export class IUBDataTableComponent implements OnInit {
   /**
    * Creates IUB Data Table Component object instance.
    * @param apiService - API service object instance.
+   * @param toastr - Toaster service for messages.
    */
   constructor(
     private apiService: ApiService,
