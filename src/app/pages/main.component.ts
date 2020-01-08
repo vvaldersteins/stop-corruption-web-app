@@ -46,15 +46,24 @@ export class MainComponent implements OnInit, OnDestroy {
    * Sets up all available and default lanuages.
    */
   private setupLanugages(): void {
-    this.translate.addLangs(Object.keys(this.languageKeys));
-    // this language will be used as a fallback when a translation isn't found in the current language
+    this.translate.addLangs(Object.keys(this.languageKeys).sort());
 
     this.sub = this.translate.onLangChange.subscribe(({ lang }: LangChangeEvent) => {
-      this.router.navigate([lang]);
+      // preserve all child routes when chaning the language URL param
+      this.router.navigate(
+        [lang, ...this.route.children.map(route => route.snapshot.routeConfig.path)],
+      );
     });
-    // the lang to use, if the lang isn't available, it will use the current loader to get them
-    this.translate.use(this.route.snapshot.params.lang);
-    this.translate.setDefaultLang('lv');
+    /**
+     * The lang to use, if the lang isn't available, it will use the current loader to get them.
+     * Since the router auto redirects to a selected language, use the one from the URL or a fallback one.
+     */
+    this.translate.use(this.route.snapshot.params.lang || this.languageKeys.lv);
+    /**
+     * This language will be used as a fallback when a translation isn't found in the current language
+     * Need to add after 'use' to avoid changing the language on load.
+     */
+    this.translate.setDefaultLang(this.languageKeys.lv);
     this.languages = this.translate.getLangs();
   }
 }

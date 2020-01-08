@@ -14,7 +14,6 @@ import { ApiService } from '../../services/api.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-iub-data-table',
   templateUrl: 'IUBDataTable.component.html'
 })
 export class IUBDataTableComponent implements OnInit {
