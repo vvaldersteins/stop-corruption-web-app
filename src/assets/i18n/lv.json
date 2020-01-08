@@ -1,15 +1,32 @@
 {
   "COMMON": {
-    "HELP": "Palīdzība"
+    "HELP": "Palīdzība",
+    "CLOSE": "Close"
   },
   "FILTERS": {
     "TITLE": "Filtri",
     "LIMIT": "Rezultātu skaits",
-    "MIN_PRICE": "Mininmālā iepirkuma cena",
-    "MAX_PRICE": "Maksimāla iepirkuma cena",
+    "MIN_PRICE": "Mininmālā iepirkuma līgumcena",
+    "MAX_PRICE": "Maksimāla iepirkuma līgumcena",
     "TENDER_COUNT_FROM": "Pretendentu skaits no",
     "TENDER_COUNT_TO": "Pretendentu skaits līdz",
     "AUTHORITY_NAME": "Iestādes nosaukums",
     "APPLY_FILTERS": "Lietot filtrus"
+  },
+  "DATA": {
+    "TITLE": "Iepirkumi",
+    "IUB_DATA_ID": "IUB ID",
+    "AUTHORITY_NAME": "Iestādes nosaukums",
+    "AUTHORITY_REG_NO": "Iestādes reģistrācijas numurs",
+    "WINNERS": "Uzvarētāji",
+    "WINNER_REG_DATES": "Uzvarētāju reģistrācijas datumi",
+    "DECISION_DATE": "Lēmuma pieņemšanas datums",
+    "CONTRACT_PRICE": "Līgumcena",
+    "CURRENCY": "Valūta",
+    "PRICE_FROM": "Līgumcena no",
+    "PRICE_TO": "Līgumcena līdz",
+    "TENDER_COUNT": "Pretendentu skaits",
+    "NO_RECORDS_FOUND": "Dati ar norādītajiem meklēšanas parametriem nav atrasti",
+    "WINNER_DATA": "Uzvarētāju dati"
   }
 }

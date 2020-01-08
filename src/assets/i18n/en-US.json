@@ -1,15 +1,32 @@
 {
   "COMMON": {
-    "HELP": "Palīdzība"
+    "HELP": "Palīdzība",
+    "CLOSE": "Close"
   },
   "FILTERS": {
     "TITLE": "Filters",
-    "LIMIT": "Number of results",
-    "MIN_PRICE": "Min price",
-    "MAX_PRICE": "Max price",
-    "TENDER_COUNT_FROM": "Tender count from",
-    "TENDER_COUNT_TO": "Tender count to",
-    "AUTHORITY_NAME": "Authority name",
+    "LIMIT": "Number of Results",
+    "MIN_PRICE": "Min Price",
+    "MAX_PRICE": "Max Price",
+    "TENDER_COUNT_FROM": "Tender Count From",
+    "TENDER_COUNT_TO": "Tender Count To",
+    "AUTHORITY_NAME": "Authority Name",
     "APPLY_FILTERS": "Apply Filters"
+  },
+  "DATA": {
+    "TITLE": "Procurements",
+    "IUB_DATA_ID": "IUB ID",
+    "AUTHORITY_NAME": "Authority Name",
+    "AUTHORITY_REG_NO": "Authority Registration Number",
+    "WINNERS": "Winners",
+    "WINNER_REG_DATES": "Winner Registration Dates",
+    "DECISION_DATE": "Decision Date",
+    "CONTRACT_PRICE": "Contract Price",
+    "CURRENCY": "Currency",
+    "PRICE_FROM": "Price From",
+    "PRICE_TO": "Price To",
+    "TENDER_COUNT": "Tender Count",
+    "NO_RECORDS_FOUND": "No records were found that match the specified search criteria",
+    "WINNER_DATA": "Winner Data"
   }
 }

@@ -1,22 +1,33 @@
 ----------------------- STORIES -----------------------------
 Internationalization
 (DONE)- add internationalization dependencies
-- add all translations from the app to the JSON files
+(DONE)- add all translations from the app to the JSON files
 - add lang in URL
 - add a drop-down in the page for changing the language
 
 -----------------------------
-
 Loader
 - add a loader for data
 
 -----------------------------
+Extra Info
+- add info about the procurement (i.e. description)
 
+-----------------------------
+Domain
+- Think of a domain name (e.g. pretkorupciju.lv) and ask around
+- Implement the domain
+
+-----------------------------
+Search
+- refactor the code to use reactive forms rather than NgModule
+- reflect the filters in the URL
+
+-----------------------------
 New Filters
 - Research what filters are necessary
 
 -----------------------------
-
 Nav Bar
 - Add a nav bar
 - Add an 'about' page
