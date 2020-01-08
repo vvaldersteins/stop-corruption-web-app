@@ -7,10 +7,18 @@ import { Routes, RouterModule } from '@angular/router';
 /**
  * Import custom pages.
  */
-import { IUBDataTableComponent } from './pages/IUBDataTable/IUBDataTable.component';
+import { MainComponent } from './pages/main.component';
 
 const routes: Routes = [
-  { path: '', component: IUBDataTableComponent, pathMatch: 'full' }
+  { path: '',
+    redirectTo: '/lv',
+    pathMatch: 'full'
+  },
+  {
+    path: ':lang',
+    component: MainComponent,
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

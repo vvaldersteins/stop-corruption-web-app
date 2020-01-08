@@ -33,6 +33,7 @@ import { AppComponent } from './app.component';
  * Import custom pages.
  */
 import { IUBDataTableComponent } from './pages/IUBDataTable/IUBDataTable.component';
+import { MainComponent } from './pages/main.component';
 
 /**
  * Import custom services.
@@ -42,6 +43,7 @@ import { ApiService } from './services/api.service';
 @NgModule({
   declarations: [
     AppComponent,
+    MainComponent,
     IUBDataTableComponent
   ],
   imports: [
