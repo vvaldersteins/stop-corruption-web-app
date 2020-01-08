@@ -1,5 +1,15 @@
 {
   "COMMON": {
-    "FILTERS": "Filters"
+    "HELP": "Palīdzība"
+  },
+  "FILTERS": {
+    "TITLE": "Filters",
+    "LIMIT": "Number of results",
+    "MIN_PRICE": "Min price",
+    "MAX_PRICE": "Max price",
+    "TENDER_COUNT_FROM": "Tender count from",
+    "TENDER_COUNT_TO": "Tender count to",
+    "AUTHORITY_NAME": "Authority name",
+    "APPLY_FILTERS": "Apply Filters"
   }
 }

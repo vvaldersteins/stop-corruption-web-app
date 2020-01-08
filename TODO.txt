@@ -5,6 +5,19 @@ Internationalization
 - add lang in URL
 - add a drop-down in the page for changing the language
 
+-----------------------------
+
+Loader
+- add a loader for data
+
+-----------------------------
 
 New Filters
 - Research what filters are necessary
+
+-----------------------------
+
+Nav Bar
+- Add a nav bar
+- Add an 'about' page
+- Add a 'help' page (for now just the graph)

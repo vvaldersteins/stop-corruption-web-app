@@ -1,5 +1,15 @@
 {
   "COMMON": {
-    "FILTERS": "Filtri"
+    "HELP": "Palīdzība"
+  },
+  "FILTERS": {
+    "TITLE": "Filtri",
+    "LIMIT": "Rezultātu skaits",
+    "MIN_PRICE": "Mininmālā iepirkuma cena",
+    "MAX_PRICE": "Maksimāla iepirkuma cena",
+    "TENDER_COUNT_FROM": "Pretendentu skaits no",
+    "TENDER_COUNT_TO": "Pretendentu skaits līdz",
+    "AUTHORITY_NAME": "Iestādes nosaukums",
+    "APPLY_FILTERS": "Lietot filtrus"
   }
 }

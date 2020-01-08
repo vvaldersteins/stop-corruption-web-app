@@ -1,20 +1,20 @@
 <div class="row">
   <div class="col-12">
     <button class="btn btn-link py-0" (click)="showHelp = !showHelp">
-      <ng-container *ngIf="!showHelp">Palīdzība +</ng-container>
-      <ng-container *ngIf="showHelp">Palīdzība -</ng-container>
+      <ng-container *ngIf="!showHelp">{{ 'COMMON.HELP' | translate }} +</ng-container>
+      <ng-container *ngIf="showHelp">{{ 'COMMON.HELP' | translate }} -</ng-container>
     </button><br />
 
     <img src="../../../assets/attels-1.jpeg" *ngIf="showHelp" />
   </div>
   <div class="col-12">
-    <h4>{{ 'COMMON.FILTERS' | translate }}</h4>
+    <h4>{{ 'FILTERS.TITLE' | translate }}</h4>
 
     <div class="row">
       <!-- Limit Filter -->
       <div class="col-12 col-md-4">
         <div class="form-group">
-          <label for="limit">Limit</label>
+          <label for="limit">{{ 'FILTERS.LIMIT' | translate }}</label>
           <select [(ngModel)]="limit" class="form-control" (change)="retrieveProcurement()">
             <option value="10">10</option>
             <option value="20">20</option>
@@ -28,7 +28,7 @@
       <!-- Price from filter -->
       <div class="col-12 col-md-4">
         <div class="form-group">
-          <label for="price-from">Min Price</label>
+          <label for="price-from">{{ 'FILTERS.MIN_PRICE' | translate }}</label>
           <input type="number" id="price-from" [(ngModel)]="priceFrom" class="form-control" />
         </div>
       </div>
@@ -36,7 +36,7 @@
       <!-- Price to filter -->
       <div class="col-12 col-md-4">
         <div class="form-group">
-          <label for="price-to">Max Price</label>
+          <label for="price-to">{{ 'FILTERS.MAX_PRICE' | translate }}</label>
           <input type="number" id="price-to" [(ngModel)]="priceTo" class="form-control" />
         </div>
       </div>
@@ -44,7 +44,7 @@
       <!-- Tender count from filter -->
       <div class="col-12 col-md-4">
         <div class="form-group">
-          <label for="tender-count-from">Tender count From</label>
+          <label for="tender-count-from">{{ 'FILTERS.TENDER_COUNT_FROM' | translate }}</label>
           <input type="number" id="tender-count-from" [(ngModel)]="tenderCountFrom" class="form-control" />
         </div>
       </div>
@@ -52,7 +52,7 @@
       <!-- Tender count to filter -->
       <div class="col-12 col-md-4">
         <div class="form-group">
-          <label for="tender-count-to">Tender count To</label>
+          <label for="tender-count-to">{{ 'FILTERS.TENDER_COUNT_TO' | translate }}</label>
           <input type="number" id="tender-count-to" [(ngModel)]="tenderCountTo" class="form-control" />
         </div>
       </div>
@@ -60,14 +60,14 @@
       <!-- Tender count to filter -->
       <div class="col-12 col-md-4">
         <div class="form-group">
-          <label for="authority-name">Authority Name</label>
+          <label for="authority-name">{{ 'FILTERS.AUTHORITY_NAME' | translate }}</label>
           <input type="text" id="authority-name" [(ngModel)]="authorityName" class="form-control" />
         </div>
       </div>
 
       <!-- Apply filters -->
       <div class="col-12">
-        <button class="btn btn-primary float-right" (click)="retrieveProcurement()">Apply Filters</button>
+        <button class="btn btn-primary float-right" (click)="retrieveProcurement()">{{ 'FILTERS.APPLY_FILTERS' | translate }}</button>
       </div>
     </div>
   </div>
