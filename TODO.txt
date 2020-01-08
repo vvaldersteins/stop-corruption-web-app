@@ -1,0 +1,10 @@
+----------------------- STORIES -----------------------------
+Internationalization
+(DONE)- add internationalization dependencies
+- add all translations from the app to the JSON files
+- add lang in URL
+- add a drop-down in the page for changing the language
+
+
+New Filters
+- Research what filters are necessary
