@@ -11,10 +11,12 @@ export class MainComponent implements OnInit, OnDestroy {
   languageNames = {
     en: 'English',
     lv: 'Latviešu',
+    ru: 'Русский',
   };
   private languageKeys = {
     en: 'en',
     lv: 'lv',
+    ru: 'ru',
   };
 
   private sub: Subscription;
