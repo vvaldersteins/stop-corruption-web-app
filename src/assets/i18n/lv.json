@@ -2,7 +2,8 @@
   "TITLE": "Pretkorupcijas Datubāze",
   "COMMON": {
     "HELP": "Palīdzība",
-    "CLOSE": "Close"
+    "CLOSE": "Close",
+    "LOADING": "Ielādē"
   },
   "FILTERS": {
     "TITLE": "Filtri",

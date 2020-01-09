@@ -31,6 +31,7 @@ export class IUBDataTableComponent implements OnInit {
   public sortDirection = 1;
   public winnerData: any;
   public showHelp = false;
+  public loading: boolean;
 
   /**
    * Creates IUB Data Table Component object instance.
@@ -56,6 +57,11 @@ export class IUBDataTableComponent implements OnInit {
    * Retrieves IUB procurement list.
    */
   retrieveProcurement() {
+    if (this.loading) {
+      return;
+    }
+
+    this.loading = true;
     const filters = {
       price: this.priceFrom || this.priceTo ?
         { $gte: this.priceFrom !== null && this.priceFrom !== undefined ? this.priceFrom : undefined,
@@ -75,8 +81,12 @@ export class IUBDataTableComponent implements OnInit {
       .subscribe(
         data => {
           this.IUBData = <any>data;
+          this.loading = false;
         },
-        () => this.toastr.error('Cannot retrieve IUB procurement data', 'IUB procurement data not retrieved')
+        () => {
+          this.toastr.error('Cannot retrieve IUB procurement data', 'IUB procurement data not retrieved');
+          this.loading = false;
+        }
       );
   }
 

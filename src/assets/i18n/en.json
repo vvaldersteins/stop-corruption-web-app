@@ -2,7 +2,8 @@
   "TITLE": "Anti-Corruption Database",
   "COMMON": {
     "HELP": "Help",
-    "CLOSE": "Close"
+    "CLOSE": "Close",
+    "LOADING": "Loading"
   },
   "FILTERS": {
     "TITLE": "Filters",

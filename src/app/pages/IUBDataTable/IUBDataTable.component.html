@@ -1,301 +1,331 @@
 <div class="row">
-  <div class="col-12">
-    <button class="btn btn-link py-0" (click)="showHelp = !showHelp">
-      <ng-container *ngIf="!showHelp">{{ 'COMMON.HELP' | translate }} +</ng-container>
-      <ng-container *ngIf="showHelp">{{ 'COMMON.HELP' | translate }} -</ng-container>
-    </button><br />
+    <div class="col-12">
+        <button class="btn btn-link py-0" (click)="showHelp = !showHelp">
+            <ng-container *ngIf="!showHelp">{{ 'COMMON.HELP' | translate }} +</ng-container>
+            <ng-container *ngIf="showHelp">{{ 'COMMON.HELP' | translate }} -</ng-container>
+        </button>
+        <br/>
 
-    <img src="../../../assets/attels-1.jpeg" *ngIf="showHelp" />
-  </div>
-  <div class="col-12">
-    <form (ngSubmit)="retrieveProcurement()">
-      <h4>{{ 'FILTERS.TITLE' | translate }}</h4>
+        <img src="../../../assets/attels-1.jpeg" *ngIf="showHelp"/>
+    </div>
+    <div class="col-12">
+        <form (ngSubmit)="retrieveProcurement()">
+            <h4>{{ 'FILTERS.TITLE' | translate }}</h4>
 
-      <div class="row">
-        <!-- Limit Filter -->
-        <div class="col-12 col-md-4">
-          <div class="form-group">
-            <label for="limit">{{ 'FILTERS.LIMIT' | translate }}</label>
-            <select [(ngModel)]="limit" class="form-control" (change)="retrieveProcurement()" [ngModelOptions]="{standalone: true}">
-              <option value="10">10</option>
-              <option value="20">20</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-              <option value="500">500</option>
-            </select>
-          </div>
+            <div class="row">
+                <!-- Limit Filter -->
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label for="limit">{{ 'FILTERS.LIMIT' | translate }}</label>
+                        <select [(ngModel)]="limit" class="form-control" (change)="retrieveProcurement()"
+                                [ngModelOptions]="{standalone: true}">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="500">500</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Price from filter -->
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label for="price-from">{{ 'FILTERS.MIN_PRICE' | translate }}</label>
+                        <input type="number" id="price-from" [(ngModel)]="priceFrom" class="form-control"
+                               [ngModelOptions]="{standalone: true}"/>
+                    </div>
+                </div>
+
+                <!-- Price to filter -->
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label for="price-to">{{ 'FILTERS.MAX_PRICE' | translate }}</label>
+                        <input type="number" id="price-to" [(ngModel)]="priceTo" class="form-control"
+                               [ngModelOptions]="{standalone: true}"/>
+                    </div>
+                </div>
+
+                <!-- Tender count from filter -->
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label for="tendr-count-from">{{ 'FILTERS.TENDER_COUNT_FROM' | translate }}</label>
+                        <input type="number" id="tender-count-from" [(ngModel)]="tenderCountFrom" class="form-control"
+                               [ngModelOptions]="{standalone: true}"/>
+                    </div>
+                </div>
+
+                <!-- Tender count to filter -->
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label for="tender-count-to">{{ 'FILTERS.TENDER_COUNT_TO' | translate }}</label>
+                        <input type="number" id="tender-count-to" [(ngModel)]="tenderCountTo" class="form-control"
+                               [ngModelOptions]="{standalone: true}"/>
+                    </div>
+                </div>
+
+                <!-- Tender count to filter -->
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label for="authority-name">{{ 'FILTERS.AUTHORITY_NAME' | translate }}</label>
+                        <input type="text" id="authority-name" [(ngModel)]="authorityName" class="form-control"
+                               [ngModelOptions]="{standalone: true}"/>
+                    </div>
+                </div>
+
+                <!-- Apply filters -->
+                <div class="col-12">
+                    <button *ngIf="!loading"
+                            type="submit"
+                            class="btn btn-primary float-right">
+                        {{ 'FILTERS.APPLY_FILTERS' | translate }}
+                    </button>
+                    <button *ngIf="loading"
+                            type="button"
+                            disabled
+                            class="btn btn-primary float-right">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        {{ 'COMMON.LOADING' | translate }}...
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-12">
+        <h4>
+            {{ 'DATA.TITLE' | translate }}
+        </h4>
+
+        <div *ngIf="loading" class="text-center">
+            <div class="spinner-border text-primary m-5" role="status" style="width: 5rem; height: 5rem;">
+                <span class="sr-only">Loading...</span>
+            </div>
         </div>
 
-        <!-- Price from filter -->
-        <div class="col-12 col-md-4">
-          <div class="form-group">
-            <label for="price-from">{{ 'FILTERS.MIN_PRICE' | translate }}</label>
-            <input type="number" id="price-from" [(ngModel)]="priceFrom" class="form-control" [ngModelOptions]="{standalone: true}" />
-          </div>
-        </div>
+        <div *ngIf="!loading" class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="pointer" (click)="setSorting('document_id')">
+                        {{ 'DATA.IUB_DATA_ID' | translate }}
+                        <ng-container *ngIf="sortBy === 'document_id'">
+                            <ng-container *ngIf="sortDirection === 1">
+                                <span class="material-icons">arrow_upwards</span>
+                            </ng-container>
 
-        <!-- Price to filter -->
-        <div class="col-12 col-md-4">
-          <div class="form-group">
-            <label for="price-to">{{ 'FILTERS.MAX_PRICE' | translate }}</label>
-            <input type="number" id="price-to" [(ngModel)]="priceTo" class="form-control" [ngModelOptions]="{standalone: true}" />
-          </div>
-        </div>
+                            <ng-container *ngIf="sortDirection === -1">
+                                <span class="material-icons">arrow_downwards</span>
+                            </ng-container>
+                        </ng-container>
+                    </th>
+                    <th class="pointer" (click)="setSorting('authority_name')">
+                        {{ 'DATA.AUTHORITY_NAME' | translate }}
+                        <ng-container *ngIf="sortBy === 'authority_name'">
+                            <ng-container *ngIf="sortDirection === 1">
+                                <span class="material-icons">arrow_upwards</span>
+                            </ng-container>
 
-        <!-- Tender count from filter -->
-        <div class="col-12 col-md-4">
-          <div class="form-group">
-            <label for="tendr-count-from">{{ 'FILTERS.TENDER_COUNT_FROM' | translate }}</label>
-            <input type="number" id="tender-count-from" [(ngModel)]="tenderCountFrom" class="form-control" [ngModelOptions]="{standalone: true}" />
-          </div>
-        </div>
+                            <ng-container *ngIf="sortDirection === -1">
+                                <span class="material-icons">arrow_downwards</span>
+                            </ng-container>
+                        </ng-container>
+                    </th>
+                    <th class="pointer" (click)="setSorting('authority_reg_num')">
+                        {{ 'DATA.AUTHORITY_REG_NO' | translate }}
+                        <ng-container *ngIf="sortBy === 'authority_reg_num'">
+                            <ng-container *ngIf="sortDirection === 1">
+                                <span class="material-icons">arrow_upwards</span>
+                            </ng-container>
 
-        <!-- Tender count to filter -->
-        <div class="col-12 col-md-4">
-          <div class="form-group">
-            <label for="tender-count-to">{{ 'FILTERS.TENDER_COUNT_TO' | translate }}</label>
-            <input type="number" id="tender-count-to" [(ngModel)]="tenderCountTo" class="form-control" [ngModelOptions]="{standalone: true}" />
-          </div>
-        </div>
+                            <ng-container *ngIf="sortDirection === -1">
+                                <span class="material-icons">arrow_downwards</span>
+                            </ng-container>
+                        </ng-container>
+                    </th>
+                    <th>
+                        {{ 'DATA.WINNERS' | translate }}
+                        <!--<ng-container *ngIf="sortBy === 'winner_name'">-->
+                        <!--<ng-container *ngIf="sortDirection === 1">-->
+                        <!--<span class="material-icons">arrow_upwards</span>-->
+                        <!--</ng-container>-->
 
-        <!-- Tender count to filter -->
-        <div class="col-12 col-md-4">
-          <div class="form-group">
-            <label for="authority-name">{{ 'FILTERS.AUTHORITY_NAME' | translate }}</label>
-            <input type="text" id="authority-name" [(ngModel)]="authorityName" class="form-control" [ngModelOptions]="{standalone: true}" />
-          </div>
-        </div>
-
-        <!-- Apply filters -->
-        <div class="col-12">
-          <button type="submit" class="btn btn-primary float-right">{{ 'FILTERS.APPLY_FILTERS' | translate }}</button>
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="col-12">
-    <h4>
-      {{ 'DATA.TITLE' | translate }}
-    </h4>
-    <div class="table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th class="pointer" (click)="setSorting('document_id')">
-              {{ 'DATA.IUB_DATA_ID' | translate }}
-              <ng-container *ngIf="sortBy === 'document_id'">
-                <ng-container *ngIf="sortDirection === 1">
-                  <span class="material-icons">arrow_upwards</span>
-                </ng-container>
-
-                <ng-container *ngIf="sortDirection === -1">
-                  <span class="material-icons">arrow_downwards</span>
-                </ng-container>
-              </ng-container>
-            </th>
-            <th class="pointer" (click)="setSorting('authority_name')">
-              {{ 'DATA.AUTHORITY_NAME' | translate }}
-              <ng-container *ngIf="sortBy === 'authority_name'">
-                <ng-container *ngIf="sortDirection === 1">
-                  <span class="material-icons">arrow_upwards</span>
-                </ng-container>
-
-                <ng-container *ngIf="sortDirection === -1">
-                  <span class="material-icons">arrow_downwards</span>
-                </ng-container>
-              </ng-container>
-            </th>
-            <th class="pointer" (click)="setSorting('authority_reg_num')">
-              {{ 'DATA.AUTHORITY_REG_NO' | translate }}
-              <ng-container *ngIf="sortBy === 'authority_reg_num'">
-                <ng-container *ngIf="sortDirection === 1">
-                  <span class="material-icons">arrow_upwards</span>
-                </ng-container>
-
-                <ng-container *ngIf="sortDirection === -1">
-                  <span class="material-icons">arrow_downwards</span>
-                </ng-container>
-              </ng-container>
-            </th>
-            <th>
-              {{ 'DATA.WINNERS' | translate }}
-              <!--<ng-container *ngIf="sortBy === 'winner_name'">-->
-                <!--<ng-container *ngIf="sortDirection === 1">-->
-                  <!--<span class="material-icons">arrow_upwards</span>-->
-                <!--</ng-container>-->
-
-                <!--<ng-container *ngIf="sortDirection === -1">-->
-                  <!--<span class="material-icons">arrow_downwards</span>-->
-                <!--</ng-container>-->
-              <!--</ng-container>-->
-            </th>
-            <th>
+                        <!--<ng-container *ngIf="sortDirection === -1">-->
+                        <!--<span class="material-icons">arrow_downwards</span>-->
+                        <!--</ng-container>-->
+                        <!--</ng-container>-->
+                    </th>
+                    <th>
               <span>
                 {{ 'DATA.WINNER_REG_DATES' | translate }}
               </span>
-            </th>
-            <th class="pointer" (click)="setSorting('decision_date')">
-              {{ 'DATA.DECISION_DATE' | translate }}
-              <ng-container *ngIf="sortBy === 'decision_date'">
-                <ng-container *ngIf="sortDirection === 1">
-                  <span class="material-icons">arrow_upwards</span>
-                </ng-container>
+                    </th>
+                    <th class="pointer" (click)="setSorting('decision_date')">
+                        {{ 'DATA.DECISION_DATE' | translate }}
+                        <ng-container *ngIf="sortBy === 'decision_date'">
+                            <ng-container *ngIf="sortDirection === 1">
+                                <span class="material-icons">arrow_upwards</span>
+                            </ng-container>
 
-                <ng-container *ngIf="sortDirection === -1">
-                  <span class="material-icons">arrow_downwards</span>
-                </ng-container>
-              </ng-container>
-            </th>
-            <th class="pointer" (click)="setSorting('price')">
-              {{ 'DATA.CONTRACT_PRICE' | translate }}
-              <ng-container *ngIf="sortBy === 'price'">
-                <ng-container *ngIf="sortDirection === 1">
-                  <span class="material-icons">arrow_upwards</span>
-                </ng-container>
+                            <ng-container *ngIf="sortDirection === -1">
+                                <span class="material-icons">arrow_downwards</span>
+                            </ng-container>
+                        </ng-container>
+                    </th>
+                    <th class="pointer" (click)="setSorting('price')">
+                        {{ 'DATA.CONTRACT_PRICE' | translate }}
+                        <ng-container *ngIf="sortBy === 'price'">
+                            <ng-container *ngIf="sortDirection === 1">
+                                <span class="material-icons">arrow_upwards</span>
+                            </ng-container>
 
-                <ng-container *ngIf="sortDirection === -1">
-                  <span class="material-icons">arrow_downwards</span>
-                </ng-container>
-              </ng-container>
-            </th>
-            <th class="pointer" (click)="setSorting('currency')">
-              {{ 'DATA.CURRENCY' | translate }}
-              <ng-container *ngIf="sortBy === 'currency'">
-                <ng-container *ngIf="sortDirection === 1">
-                  <span class="material-icons">arrow_upwards</span>
-                </ng-container>
+                            <ng-container *ngIf="sortDirection === -1">
+                                <span class="material-icons">arrow_downwards</span>
+                            </ng-container>
+                        </ng-container>
+                    </th>
+                    <th class="pointer" (click)="setSorting('currency')">
+                        {{ 'DATA.CURRENCY' | translate }}
+                        <ng-container *ngIf="sortBy === 'currency'">
+                            <ng-container *ngIf="sortDirection === 1">
+                                <span class="material-icons">arrow_upwards</span>
+                            </ng-container>
 
-                <ng-container *ngIf="sortDirection === -1">
-                  <span class="material-icons">arrow_downwards</span>
-                </ng-container>
-              </ng-container>
-            </th>
-            <th class="pointer" (click)="setSorting('price_from')">
-              {{ 'DATA.PRICE_FROM' | translate }}
-              <ng-container *ngIf="sortBy === 'price_from'">
-                <ng-container *ngIf="sortDirection === 1">
-                  <span class="material-icons">arrow_upwards</span>
-                </ng-container>
+                            <ng-container *ngIf="sortDirection === -1">
+                                <span class="material-icons">arrow_downwards</span>
+                            </ng-container>
+                        </ng-container>
+                    </th>
+                    <th class="pointer" (click)="setSorting('price_from')">
+                        {{ 'DATA.PRICE_FROM' | translate }}
+                        <ng-container *ngIf="sortBy === 'price_from'">
+                            <ng-container *ngIf="sortDirection === 1">
+                                <span class="material-icons">arrow_upwards</span>
+                            </ng-container>
 
-                <ng-container *ngIf="sortDirection === -1">
-                  <span class="material-icons">arrow_downwards</span>
-                </ng-container>
-              </ng-container>
-            </th>
-            <th class="pointer" (click)="setSorting('price_to')">
-              {{ 'DATA.PRICE_TO' | translate }}
-              <ng-container *ngIf="sortBy === 'price_to'">
-                <ng-container *ngIf="sortDirection === 1">
-                  <span class="material-icons">arrow_upwards</span>
-                </ng-container>
+                            <ng-container *ngIf="sortDirection === -1">
+                                <span class="material-icons">arrow_downwards</span>
+                            </ng-container>
+                        </ng-container>
+                    </th>
+                    <th class="pointer" (click)="setSorting('price_to')">
+                        {{ 'DATA.PRICE_TO' | translate }}
+                        <ng-container *ngIf="sortBy === 'price_to'">
+                            <ng-container *ngIf="sortDirection === 1">
+                                <span class="material-icons">arrow_upwards</span>
+                            </ng-container>
 
-                <ng-container *ngIf="sortDirection === -1">
-                  <span class="material-icons">arrow_downwards</span>
-                </ng-container>
-              </ng-container>
-            </th>
-            <th class="pointer" (click)="setSorting('tender_num')">
-              {{ 'DATA.TENDER_COUNT' | translate }}
-              <ng-container *ngIf="sortBy === 'tender_num'">
-                <ng-container *ngIf="sortDirection === 1">
-                  <span class="material-icons">arrow_upwards</span>
-                </ng-container>
+                            <ng-container *ngIf="sortDirection === -1">
+                                <span class="material-icons">arrow_downwards</span>
+                            </ng-container>
+                        </ng-container>
+                    </th>
+                    <th class="pointer" (click)="setSorting('tender_num')">
+                        {{ 'DATA.TENDER_COUNT' | translate }}
+                        <ng-container *ngIf="sortBy === 'tender_num'">
+                            <ng-container *ngIf="sortDirection === 1">
+                                <span class="material-icons">arrow_upwards</span>
+                            </ng-container>
 
-                <ng-container *ngIf="sortDirection === -1">
-                  <span class="material-icons">arrow_downwards</span>
+                            <ng-container *ngIf="sortDirection === -1">
+                                <span class="material-icons">arrow_downwards</span>
+                            </ng-container>
+                        </ng-container>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <ng-container *ngIf="IUBData.length === 0">
+                    <tr>
+                        <td colspan="7" class="text-center">No records were found that match the specified search
+                            criteria
+                        </td>
+                    </tr>
                 </ng-container>
-              </ng-container>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <ng-container *ngIf="IUBData.length === 0">
-            <tr>
-              <td colspan="7" class="text-center">No records were found that match the specified search criteria</td>
-            </tr>
-          </ng-container>
-          <ng-container *ngIf="IUBData.length > 0">
-            <tr *ngFor="let row of IUBData">
-              <td>
-                <a href="https://pvs.iub.gov.lv/show/{{ row.document_id }}" target="_blank">{{ row.document_id }}</a>
-              </td>
-              <td>{{ row.authority_name }}</td>
-              <td>{{ row.authority_reg_num }}</td>
-              <td>
-                <ng-container *ngFor="let winner of row.winners">
-                  <a *ngIf="winner.winner_reg_num" target="_blank" href="https://company.lursoft.lv/{{ winner.winner_reg_num}}">
-                    {{ winner.winner_name }} ({{ winner.winner_reg_num }}<span *ngIf="winner.winner_reg_date">, reg: {{winner.winner_reg_date}}</span>)
-                  </a>
-                  <span *ngIf="!winner.winner_reg_num" >{{ winner.winner_name }}</span>
+                <ng-container *ngIf="IUBData.length > 0">
+                    <tr *ngFor="let row of IUBData">
+                        <td>
+                            <a href="https://pvs.iub.gov.lv/show/{{ row.document_id }}"
+                               target="_blank">{{ row.document_id }}</a>
+                        </td>
+                        <td>{{ row.authority_name }}</td>
+                        <td>{{ row.authority_reg_num }}</td>
+                        <td>
+                            <ng-container *ngFor="let winner of row.winners">
+                                <a *ngIf="winner.winner_reg_num" target="_blank"
+                                   href="https://company.lursoft.lv/{{ winner.winner_reg_num}}">
+                                    {{ winner.winner_name }} ({{ winner.winner_reg_num }}<span
+                                        *ngIf="winner.winner_reg_date">, reg: {{winner.winner_reg_date}}</span>)
+                                </a>
+                                <span *ngIf="!winner.winner_reg_num">{{ winner.winner_name }}</span>
+                            </ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngFor="let winner of row.winners">
+                                <span *ngIf="winner.winner_reg_date">{{ winner.winner_reg_date }}</span>
+                            </ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="row.decision_date; else noValue">
+                                {{ row.decision_date }}
+                            </ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="row.price; else noValue">
+                                <span *ngIf="row.currency === 2">&#8364;</span><span>{{ row.price | number:'1.2-2' }}</span>
+                            </ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="row.currency; else noValue">
+                                <span *ngIf="row.currency === 1">LVL</span>
+                                <span *ngIf="row.currency === 2">EUR</span>
+                            </ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="row.price_from; else noValue">
+                                <span *ngIf="row.currency === 2">&#8364;</span><span>{{ row.price_from | number:'1.2-2' }}</span>
+                            </ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="row.price_to; else noValue">
+                                <span *ngIf="row.currency === 2">&#8364;</span><span>{{ row.price_to | number:'1.2-2' }}</span>
+                            </ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="row.tender_num; else noValue">
+                                {{ row.tender_num }}
+                            </ng-container>
+                        </td>
+                    </tr>
                 </ng-container>
-              </td>
-              <td>
-                <ng-container *ngFor="let winner of row.winners">
-                  <span *ngIf="winner.winner_reg_date" >{{ winner.winner_reg_date }}</span>
-                </ng-container>
-              </td>
-              <td>
-                <ng-container *ngIf="row.decision_date; else noValue">
-                  {{ row.decision_date }}
-                </ng-container>
-              </td>
-              <td>
-                <ng-container *ngIf="row.price; else noValue">
-                  <span *ngIf="row.currency === 2">&#8364;</span><span>{{ row.price | number:'1.2-2' }}</span>
-                </ng-container>
-              </td>
-              <td>
-                <ng-container *ngIf="row.currency; else noValue">
-                  <span *ngIf="row.currency === 1">LVL</span>
-                  <span *ngIf="row.currency === 2">EUR</span>
-                </ng-container>
-              </td>
-              <td>
-                <ng-container *ngIf="row.price_from; else noValue">
-                  <span *ngIf="row.currency === 2">&#8364;</span><span>{{ row.price_from | number:'1.2-2' }}</span>
-                </ng-container>
-              </td>
-              <td>
-                <ng-container *ngIf="row.price_to; else noValue">
-                  <span *ngIf="row.currency === 2">&#8364;</span><span>{{ row.price_to | number:'1.2-2' }}</span>
-                </ng-container>
-              </td>
-              <td>
-                <ng-container *ngIf="row.tender_num; else noValue">
-                  {{ row.tender_num }}
-                </ng-container>
-              </td>
-            </tr>
-          </ng-container>
-        </tbody>
-      </table>
+                </tbody>
+            </table>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Authority data modal -->
 <div class="modal fade" id="winnerDataModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">
-          {{ 'DATA.WINNER_DATA' | translate }}
-        </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">
-          {{ 'COMMON.CLOSE' | translate }}
-        </button>
-      </div>
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    {{ 'DATA.WINNER_DATA' | translate }}
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                    {{ 'COMMON.CLOSE' | translate }}
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <ng-template #noValue>
-  -
+    -
 </ng-template>
