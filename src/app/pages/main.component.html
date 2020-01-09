@@ -3,7 +3,7 @@
         {{ 'TITLE' | translate }}
     </h1>
     <label class="p-3">
-        <select #langSelect (change)="translate.use(langSelect.value)">
+        <select class="custom-select" #langSelect (change)="translate.use(langSelect.value)">
             <option *ngFor="let lang of languages" [value]="lang"
                     [selected]="lang === translate.currentLang">{{ languageNames[lang] || lang }}</option>
         </select>

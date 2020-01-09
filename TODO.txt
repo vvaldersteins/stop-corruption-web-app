@@ -24,8 +24,17 @@ Search
 - reflect the filters in the URL
 
 -----------------------------
+Clear filters
+- add a clear filters button
+
+-----------------------------
 New Filters
-- Research what filters are necessary
+- Research what filters are necessary:
+    - authority registration number
+    - winner name/reg number
+    - IUB ID
+    - winner registration dates (might need to do when these are are actually added)
+    - procurement description (when added)
 
 -----------------------------
 Nav Bar
