@@ -1,13 +1,15 @@
 ----------------------- STORIES -----------------------------
-Internationalization
+(DONE)Internationalization
 (DONE)- add internationalization dependencies
 (DONE)- add all translations from the app to the JSON files
-- add lang in URL
-- add a drop-down in the page for changing the language
+(DONE)- add lang in URL
+(DONE)- add a drop-down in the page for changing the language
 
 -----------------------------
-Loader
-- add a loader for data
+(DONE)Loader
+(DONE)- add a loader for data
+(DONE)- add a loader for button
+(DONE)- disable data requesting when a request is in progress
 
 -----------------------------
 Extra Info

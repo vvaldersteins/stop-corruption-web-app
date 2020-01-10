@@ -236,8 +236,8 @@
                 <tbody>
                 <ng-container *ngIf="IUBData.length === 0">
                     <tr>
-                        <td colspan="7" class="text-center">No records were found that match the specified search
-                            criteria
+                        <td colspan="7" class="text-center">
+                            {{ 'DATA.NO_RECORDS_FOUND' | translate }}
                         </td>
                     </tr>
                 </ng-container>
